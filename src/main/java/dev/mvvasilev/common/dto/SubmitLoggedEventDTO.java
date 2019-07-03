@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Objects;
 
-public class SubmitLoggedEventDTO implements Serializable {
+public class SubmitLoggedEventDTO<T> implements Serializable {
 
     @NotNull
     private EventType eventType;
@@ -25,7 +25,7 @@ public class SubmitLoggedEventDTO implements Serializable {
 
     private int version;
 
-    private Map<String, Object> data;
+    private T data;
 
     public SubmitLoggedEventDTO() {
     }
@@ -63,11 +63,11 @@ public class SubmitLoggedEventDTO implements Serializable {
         this.version = version;
     }
 
-    public Map<String, Object> getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Map<String, Object> data) {
+    public void setData(T data) {
         this.data = data;
     }
 
