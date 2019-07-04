@@ -1,11 +1,25 @@
-plugins {
-    id 'java'
-    id 'maven'
+buildscript {
+    repositories {
+        mavenCentral()
+    }
 }
 
-group 'dev.mvvasilev'
-version '1.0-SNAPSHOT'
+plugins {
+    id "io.spring.dependency-management" version "1.0.5.RELEASE"
+    id "maven"
+}
 
+ext {
+    springBootVersion = '2.1.6.RELEASE'
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+jar {
+    baseName = 'common-lib'
+    version = '0.0.1-SNAPSHOT'
+}
 sourceCompatibility = 1.8
 
 repositories {
@@ -13,7 +27,21 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'com.fasterxml.jackson.core:jackson-annotations:2.9.9'
-    compileOnly 'org.springframework:spring-context:5.1.7.RELEASE'
-    compileOnly 'javax.validation:validation-api:2.0.1.Final'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    compileOnly 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compileOnly 'org.springframework.boot:spring-boot-starter-validation'
+    compileOnly 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.springframework.boot:spring-boot-starter-data-rest'
+    compileOnly 'org.springframework.boot:spring-boot-starter-hateoas'
+    compileOnly 'org.springframework.boot:spring-boot-starter-security'
+    compileOnly 'org.springframework.boot:spring-boot-starter-amqp'
+
+    compileOnly 'org.modelmapper:modelmapper:2.3.0'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+    }
 }
